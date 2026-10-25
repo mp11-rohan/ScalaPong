@@ -1,6 +1,8 @@
 package pong.logic
 
 import pong.logic.Constants.*
+import pong.logic.Collision.bounceOffWalls
+import pong.logic.Collision.bounceOffPaddle
 
 object GameLogic {
 
@@ -12,5 +14,11 @@ object GameLogic {
         rightPaddle = state.rightPaddle.moveBy(PaddleSpeed*controls.rightDirection)
         )
 
-  private def moveBall(state: GameState): GameState = state.copy(ball = state.ball.move())
+  private def moveBall(state: GameState): GameState = {
+    val ballMoved = state.ball.move()
+    val afterWalls = bounceOffWalls(ballMoved)
+    val afterLeftPaddle = bounceOffPaddle(afterWalls, state.leftPaddle)
+    val afterRightPaddle = bounceOffPaddle(afterLeftPaddle, state.rightPaddle)
+    state.copy(ball = afterRightPaddle)
+  }
 }

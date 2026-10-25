@@ -20,6 +20,7 @@ object Constants {
   val BallStartSpeed: Float = 5 // pixels per frame
   val BallStartX: Float = (FieldWidth - BallSize)/2
   val BallStartY: Float = (FieldHeight - BallSize)/2
+  val MaxBounceAngle: Float = (math.Pi/3).toFloat
 
   // Timing and scoring
   val FramesPerSecond: Int = 60
