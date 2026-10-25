@@ -43,11 +43,11 @@ object Collision {
   }
 
   private def bounceVelocity(ball: Ball, paddle: Paddle): Point = {
-      val speed = math.hypot(ball.velocity.x, ball.velocity.y).toFloat
-      val angle = hitOffset(ball, paddle) * MaxBounceAngle
-      Point(
+    val speed = math.hypot(ball.velocity.x, ball.velocity.y).toFloat
+    val angle = hitOffset(ball, paddle) * MaxBounceAngle
+    Point(
       awayDirection(paddle) * speed * math.cos(angle).toFloat,
       speed * math.sin(angle).toFloat
-      )
+    )
   }
 }

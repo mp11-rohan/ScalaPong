@@ -7,7 +7,10 @@ import pong.logic.Collision.bounceOffPaddle
 object GameLogic {
 
   // One frame: returns the next state
-  def step(state: GameState, controls: Controls): GameState = moveBall(movePaddles(state = state, controls = controls))
+  def step(state: GameState, controls: Controls): GameState = state.phase match {
+  case Playing  => checkWinner(scorePoint(moveBall(movePaddles(state = state, controls = controls)))) 
+  case GameOver => state
+}
 
   private def movePaddles(state: GameState, controls: Controls): GameState = state.copy(
         leftPaddle = state.leftPaddle.moveBy(PaddleSpeed*controls.leftDirection),
@@ -21,4 +24,13 @@ object GameLogic {
     val afterRightPaddle = bounceOffPaddle(afterLeftPaddle, state.rightPaddle)
     state.copy(ball = afterRightPaddle)
   }
+
+  private def scorePoint(state: GameState): GameState = {
+    if(state.ball.position.x > FieldWidth) state.copy(leftScore = state.leftScore + 1, ball = Ball.serve(direction = 1))
+    else if(state.ball.position.x + BallSize < 0) state.copy(rightScore = state.rightScore + 1, ball = Ball.serve(direction = -1))
+    else state
+  }
+
+  private def checkWinner(state: GameState): GameState = 
+    if(state.leftScore >= WinningScore || state.rightScore >= WinningScore) state.copy(phase = GameOver) else state
 }
