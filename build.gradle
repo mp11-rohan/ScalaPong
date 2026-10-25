@@ -1,1 +1,26 @@
+plugins {
+    id 'scala'
+    id 'idea'
+    id 'application'
+}
 
+application {
+    mainClass.set("pong.Main")
+}
+
+ext {
+    scalaMajorVersion = '3.3'
+    scalaVersion = "${scalaMajorVersion}.8"
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets.main.scala.srcDirs = ['src']
+
+dependencies {
+    implementation "org.processing:core:4.5.6"
+    implementation("org.scala-lang:scala3-compiler_3:${scalaVersion}")
+    implementation("org.scala-lang:scala3-library_3:${scalaVersion}")
+}
