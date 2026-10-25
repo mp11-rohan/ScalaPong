@@ -10,8 +10,7 @@ The rest of the code was written by me.
 - 2-player mode and 1-player mode against a simple AI
 - Start menu: choose the number of players and the ball speed (Slow/Normal/Fast)
 - The ball leaves a paddle at an angle that depends on where it hit
-- One-second pause after every point, paddles return to their start positions
-- First to 5 points wins, then Space returns to the menu
+- First to 5 points wins
 
 ## CONTROLS
 - Left player: W / S
