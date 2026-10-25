@@ -4,7 +4,6 @@ import engine.GameBase
 import engine.graphics.{Color, Point, Rectangle}
 import pong.logic.*
 import pong.logic.Constants.*
-import engine.graphics.Color.Gray
 
 class Renderer(game: GameBase) {
 
@@ -12,15 +11,17 @@ class Renderer(game: GameBase) {
   private val ScoreY = 60
   private val DashHeight = 20
   private val DashWidth = 4
+  private val GameOverDetailSize = ScoreTextSize / 3
+  private val GameOverDetailOffset = ScoreTextSize - 15
   private val menu = new Menu(game)
 
   def draw(state: GameState): Unit = {
     state.phase match {
-        case MainMenu => menu.draw(state.speed, state.mode)
-        case Playing => drawGame(state)
-        case GameOver => 
-          drawGame(state)
-          drawGameOver(state)
+      case MainMenu => menu.draw(state.speed, state.mode)
+      case Playing  => drawGame(state)
+      case GameOver =>
+        drawGame(state)
+        drawGameOver(state)
     }
   }
 
@@ -35,8 +36,8 @@ class Renderer(game: GameBase) {
 
   private def drawCenterLine(): Unit = {
     game.setFillColor(Color.Gray)
-    for(h <- 0 until FieldHeight by 2*DashHeight) {
-      game.drawRectangle(Rectangle(leftUp = Point((FieldWidth - DashWidth)/2, h), width = DashWidth, height = DashHeight))
+    for (h <- 0 until FieldHeight by 2 * DashHeight) {
+      game.drawRectangle(Rectangle(leftUp = Point((FieldWidth - DashWidth) / 2, h), width = DashWidth, height = DashHeight))
     }
   }
 
@@ -52,16 +53,16 @@ class Renderer(game: GameBase) {
 
   private def drawScores(state: GameState): Unit = {
     game.setFillColor(Color.White)
-    game.drawTextCentered(string = state.leftScore.toString(), size= ScoreTextSize, center = Point(FieldWidth/4, ScoreY)) // Left score
-    game.drawTextCentered(string = state.rightScore.toString(), size = ScoreTextSize, center = Point(3*FieldWidth/4, ScoreY)) // Right score
+    game.drawTextCentered(string = state.leftScore.toString(), size = ScoreTextSize, center = Point(FieldWidth / 4, ScoreY))
+    game.drawTextCentered(string = state.rightScore.toString(), size = ScoreTextSize, center = Point(3 * FieldWidth / 4, ScoreY))
   }
 
   private def drawGameOver(state: GameState): Unit = {
-    val winnerText = if(state.leftScore>state.rightScore) "Left player won!" else "Right player won!"
-    val center = Point(FieldWidth/2, FieldHeight/2)
+    val winnerText = if (state.leftScore > state.rightScore) "Left player won!" else "Right player won!"
+    val center = Point(FieldWidth / 2, FieldHeight / 2)
     game.setFillColor(Color.Red)
     game.drawTextCentered(string = "GAME OVER", size = ScoreTextSize, center = center)
     game.setFillColor(Color.White)
-    game.drawTextCentered(string = winnerText, size = ScoreTextSize / 3, center = center + Point(0, ScoreTextSize - 15))
+    game.drawTextCentered(string = winnerText, size = GameOverDetailSize, center = center + Point(0, GameOverDetailOffset))
   }
 }
