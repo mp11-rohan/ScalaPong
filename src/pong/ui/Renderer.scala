@@ -41,7 +41,7 @@ class Renderer(game: GameBase) {
 
   private def drawBall(ball: Ball): Unit = {
     game.setFillColor(Color.White)
-    game.drawRectangle(Rectangle(leftUp = Point(BallStartX, BallStartY), width = BallSize, height = BallSize))
+    game.drawRectangle(Rectangle(leftUp = ball.position, width = BallSize, height = BallSize))
   }
 
   private def drawScores(state: GameState): Unit = {
