@@ -13,11 +13,12 @@ case class GameState(
   rightScore: Int,
   phase: Phase,
   speed: Speed,
-  pauseFrames: Int
+  pauseFrames: Int,
+  mode: GameMode
 )
 
 object GameState {
 
-  def initial: GameState = newGame(Normal).copy(phase = MainMenu)
-  def newGame(speed: Speed): GameState = GameState(ball = Ball.serve(direction = 1, speed = speed.ballSpeed), leftPaddle = Paddle.left, rightPaddle = Paddle.right, leftScore = 0, rightScore = 0, phase = Playing, speed=speed, pauseFrames = 0)
+  def initial: GameState = newGame(Normal, TwoPlayers).copy(phase = MainMenu)
+  def newGame(speed: Speed, mode: GameMode): GameState = GameState(ball = Ball.serve(direction = 1, speed = speed.ballSpeed), leftPaddle = Paddle.left, rightPaddle = Paddle.right, leftScore = 0, rightScore = 0, phase = Playing, speed=speed, pauseFrames = 0, mode = mode)
 }

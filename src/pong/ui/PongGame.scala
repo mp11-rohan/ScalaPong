@@ -1,6 +1,6 @@
 package pong.ui
 
-import java.awt.event.KeyEvent.{VK_SPACE, VK_ENTER, VK_LEFT, VK_RIGHT}
+import java.awt.event.KeyEvent.{VK_DOWN, VK_ENTER, VK_LEFT, VK_RIGHT, VK_SPACE, VK_UP}
 import engine.GameBase
 import pong.logic.*
 import pong.logic.Constants.*
@@ -31,6 +31,7 @@ class PongGame extends GameBase {
     case VK_LEFT  => state = GameLogic.changeSpeed(state, -1)
     case VK_RIGHT => state = GameLogic.changeSpeed(state, 1)
     case VK_ENTER => state = GameLogic.startGame(state)
+    case VK_UP | VK_DOWN    => state = GameLogic.changeMode(state)
     case _        => ()
   }
   override def keyReleased(event: KeyEvent): Unit = input.keyReleased(event = event)

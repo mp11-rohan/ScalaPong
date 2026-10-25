@@ -16,10 +16,10 @@ class Renderer(game: GameBase) {
 
   def draw(state: GameState): Unit = {
     state.phase match {
-        case MainMenu => menu.draw(state.speed)
+        case MainMenu => menu.draw(state.speed, state.mode)
         case Playing => drawGame(state)
         case GameOver => 
-          drawGameOver(state)
+          drawGame(state)
           drawGameOver(state)
     }
   }

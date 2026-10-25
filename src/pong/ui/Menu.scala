@@ -11,14 +11,15 @@ class Menu(game: GameBase) {
   private val TextSize = 30
   private val HintSize = 18
 
-  def draw(speed: Speed): Unit = {
+  def draw(speed: Speed, mode: GameMode): Unit = {
     val centerX = FieldWidth / 2
     game.setBackground(Color.Black)
     game.setFillColor(Color.White)
     game.drawTextCentered("PONG", TitleSize, Point(centerX, FieldHeight / 4))
-    game.drawTextCentered(s"< ${speed.label} >", TextSize, Point(centerX, FieldHeight / 2))
-    game.drawTextCentered("Left / Right: ball speed", HintSize, Point(centerX, FieldHeight / 2 + 40))
-    game.drawTextCentered("Enter: start", HintSize, Point(centerX, FieldHeight / 2 + 70))
-    game.drawTextCentered("W / S and Up / Down: move paddles", HintSize, Point(centerX, FieldHeight * 3 / 4 + 20))
+    game.drawTextCentered(s"< ${mode.label} >", TextSize, Point(centerX, FieldHeight / 2 - 30))
+    game.drawTextCentered(s"< ${speed.label} >", TextSize, Point(centerX, FieldHeight / 2 + 15))
+    game.drawTextCentered("Up / Down: players    Left / Right: ball speed", HintSize, Point(centerX, FieldHeight / 2 + 60))
+    game.drawTextCentered("Enter: start", HintSize, Point(centerX, FieldHeight / 2 + 85))
+    game.drawTextCentered("W / S and Up / Down: move paddles", HintSize, Point(centerX, FieldHeight * 3 / 4 + 30))
   }
 }

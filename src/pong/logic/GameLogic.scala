@@ -8,9 +8,9 @@ object GameLogic {
 
   // One frame: returns the next state
   def step(state: GameState, controls: Controls): GameState = state.phase match {
-  case Playing  =>
+  case Playing =>
     if (state.pauseFrames > 0) tickPause(state)
-    else scorePoint(moveBall(movePaddles(state, controls))) 
+    else scorePoint(moveBall(movePaddles(state, effectiveControls(state, controls))))
   case GameOver => state
   case MainMenu => state
 }
@@ -53,7 +53,20 @@ object GameLogic {
 
   def changeSpeed(state: GameState, offset: Int): GameState = state.copy(speed = Speed.shifted(state.speed, offset))
 
-  def startGame(state: GameState): GameState = GameState.newGame(state.speed)
+  private def effectiveControls(state: GameState, controls: Controls): Controls = state.mode match {
+    case TwoPlayers => controls
+    case OnePlayer  => Controls(
+      leftDirection = (controls.leftDirection + controls.rightDirection).max(-1).min(1),
+      rightDirection = AI.direction(state.ball, state.rightPaddle)
+    )
+  }
 
-  def backToMenu(state: GameState): GameState = GameState.initial.copy(speed = state.speed)
+  def changeMode(state: GameState): GameState =
+    state.copy(mode = GameMode.toggled(state.mode))
+
+  def startGame(state: GameState): GameState =
+    GameState.newGame(state.speed, state.mode)
+
+  def backToMenu(state: GameState): GameState =
+  GameState.initial.copy(speed = state.speed, mode = state.mode)
 }
