@@ -9,7 +9,7 @@ object Constants {
   // Paddle
   val PaddleWidth: Float = 10
   val PaddleHeight: Float = 75
-  val PaddleSpeed: Float = 6 // pixels per frame
+  val PaddleSpeed: Float = 4 // pixels per frame
   val PaddleMargin: Float = 10 // distance from the screen edge
   val LeftPaddleX: Float = PaddleMargin
   val RightPaddleX: Float = FieldWidth - PaddleMargin - PaddleWidth
@@ -25,4 +25,5 @@ object Constants {
   // Timing and scoring
   val FramesPerSecond: Int = 60
   val WinningScore: Int = 5
+  val PointPauseFrames: Int = FramesPerSecond // one second
 }

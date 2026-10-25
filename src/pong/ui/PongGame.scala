@@ -1,6 +1,6 @@
 package pong.ui
 
-import java.awt.event.KeyEvent.VK_SPACE
+import java.awt.event.KeyEvent.{VK_SPACE, VK_ENTER, VK_LEFT, VK_RIGHT}
 import engine.GameBase
 import pong.logic.*
 import pong.logic.Constants.*
@@ -19,10 +19,20 @@ class PongGame extends GameBase {
   }
 
   override def keyPressed(event: KeyEvent): Unit = {
-    input.keyPressed(event = event)
-    if(state.phase == GameOver && event.getKeyCode() == VK_SPACE) state = GameState.initial
-  } 
-
+    input.keyPressed(event)
+    state.phase match {
+      case MainMenu => handleMenuKey(event.getKeyCode)
+      case GameOver => if (event.getKeyCode == VK_SPACE) state = GameLogic.backToMenu(state)
+      case Playing  => ()
+    }
+  }
+  
+  private def handleMenuKey(keyCode: Int): Unit = keyCode match {
+    case VK_LEFT  => state = GameLogic.changeSpeed(state, -1)
+    case VK_RIGHT => state = GameLogic.changeSpeed(state, 1)
+    case VK_ENTER => state = GameLogic.startGame(state)
+    case _        => ()
+  }
   override def keyReleased(event: KeyEvent): Unit = input.keyReleased(event = event)
 
   override def settings(): Unit = {
@@ -41,4 +51,6 @@ class PongGame extends GameBase {
       updateTimer.advanceFrame()
     }
   }
+
+
 }

@@ -8,23 +8,29 @@ import engine.graphics.Color.Gray
 
 class Renderer(game: GameBase) {
 
-  // UI-only numbers, named instead of left as magic numbers
   private val ScoreTextSize = 40
   private val ScoreY = 60
   private val DashHeight = 20
   private val DashWidth = 4
+  private val menu = new Menu(game)
 
   def draw(state: GameState): Unit = {
+    state.phase match {
+        case MainMenu => menu.draw(state.speed)
+        case Playing => drawGame(state)
+        case GameOver => 
+          drawGameOver(state)
+          drawGameOver(state)
+    }
+  }
+
+  private def drawGame(state: GameState): Unit = {
     game.setBackground(Color.Black)
     drawCenterLine()
     drawPaddle(state.leftPaddle)
     drawPaddle(state.rightPaddle)
     drawBall(state.ball)
-    drawScores(state = state)
-    state.phase match {
-        case GameOver => drawGameOver(state = state)
-        case Playing => ()
-    }
+    drawScores(state)
   }
 
   private def drawCenterLine(): Unit = {
@@ -56,6 +62,6 @@ class Renderer(game: GameBase) {
     game.setFillColor(Color.Red)
     game.drawTextCentered(string = "GAME OVER", size = ScoreTextSize, center = center)
     game.setFillColor(Color.White)
-    game.drawTextCentered(string = winnerText, size = ScoreTextSize / 3, center = center + Point(0, ScoreTextSize + 5))
+    game.drawTextCentered(string = winnerText, size = ScoreTextSize / 3, center = center + Point(0, ScoreTextSize - 15))
   }
 }

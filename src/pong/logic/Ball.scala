@@ -10,6 +10,5 @@ case class Ball(position: Point, velocity: Point) {
 
 object Ball {
 
-  def initial: Ball = serve(direction = 1)
-  def serve(direction: Int): Ball = Ball(position = Point(BallStartX, BallStartY), velocity = Point(BallStartSpeed*direction, 0))
+  def serve(direction: Int, speed: Float): Ball = Ball(position = Point(BallStartX, BallStartY), velocity = Point(speed*direction, 0))
 }
