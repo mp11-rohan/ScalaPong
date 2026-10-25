@@ -1,9 +1,7 @@
 package pong.logic
 
 import engine.graphics.Point
-import pong.logic.Constants.BallStartX
-import pong.logic.Constants.BallStartY
-import pong.logic.Constants.BallStartSpeed
+import pong.logic.Constants.* 
 
 case class Ball(position: Point, velocity: Point) {
 

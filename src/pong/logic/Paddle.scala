@@ -1,12 +1,11 @@
 package pong.logic
 
-import pong.logic.Constants.LeftPaddleX
-import pong.logic.Constants.RightPaddleX
-import pong.logic.Constants.PaddleStartY
+import pong.logic.Constants.* 
+
 
 case class Paddle(x: Float, y: Float) {
 
-  def moveBy(dy: Float): Paddle = copy(x = this.x, y = this.y + dy)
+  def moveBy(dy: Float): Paddle = copy(x = this.x, y = (this.y + dy).max(0).min(FieldHeight - PaddleHeight))
 
 }
 

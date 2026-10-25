@@ -10,6 +10,6 @@ case class GameState(
 
 object GameState {
 
-  def initial: GameState = GameState(ball = Ball.initial, leftPaddle = Paddle.left, rightPaddle = Paddle.right, leftScore = 0, rightScore = 0)  // initial ball, both paddles, scores 0-0
+  def initial: GameState = GameState(ball = Ball.initial, leftPaddle = Paddle.left, rightPaddle = Paddle.right, leftScore = 0, rightScore = 0)
 
 }
