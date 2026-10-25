@@ -19,3 +19,8 @@ The rest of the code was written by me.
   Enter starts the game
 - Game over screen: Space returns to the menu
 - In 1-player mode, W/S and the arrow keys both move the left paddle
+
+## HOW TO RUN
+Requires a JDK (17 or newer). In the project folder run:
+  ./gradlew run          (Mac/Linux, Git Bash)
+  .\gradlew.bat run      (Windows PowerShell)
